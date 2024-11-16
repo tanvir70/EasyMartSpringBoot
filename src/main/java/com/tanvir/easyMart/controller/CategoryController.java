@@ -2,6 +2,7 @@ package com.tanvir.easyMart.controller;
 
 import com.tanvir.easyMart.model.Category;
 import com.tanvir.easyMart.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,8 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
+    @Autowired
     private CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @GetMapping("/api/public/categories")
     public HttpEntity<List<Category>> getAllCategories() {
