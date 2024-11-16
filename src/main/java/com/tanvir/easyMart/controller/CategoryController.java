@@ -2,6 +2,7 @@ package com.tanvir.easyMart.controller;
 
 import com.tanvir.easyMart.model.Category;
 import com.tanvir.easyMart.service.CategoryService;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,15 @@ public class CategoryController {
     }
 
     @GetMapping("/api/public/categories")
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public HttpEntity<List<Category>> getAllCategories() {
+        List<Category> allCategories = categoryService.getAllCategories();
+        return new ResponseEntity<>(allCategories,HttpStatus.OK);
     }
 
     @PostMapping("api/public/categories")
-    public String CreateCategory(@RequestBody Category category) {
+    public HttpEntity<String> CreateCategory(@RequestBody Category category) {
         categoryService.createCategory(category);
-        return "Category created";
+        return new ResponseEntity<>("Category created",HttpStatus.CREATED);
     }
 
     @DeleteMapping("api/admin/categories/{categoryId}")
