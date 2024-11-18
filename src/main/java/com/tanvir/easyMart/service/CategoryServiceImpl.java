@@ -1,5 +1,6 @@
 package com.tanvir.easyMart.service;
 
+import com.tanvir.easyMart.exceptions.ResourceNotFoundException;
 import com.tanvir.easyMart.model.Category;
 import com.tanvir.easyMart.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public String deleteCategory(Long categoryId) {
         Category toBeDeletedCategory = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         categoryRepository.delete(toBeDeletedCategory);
         return "Category with ID " + categoryId + " deleted successfully.";
     }
@@ -37,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category updateCategory(Long categoryId, Category category) {
         Category existingCategory = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         existingCategory.setCategoryName(category.getCategoryName());
         return categoryRepository.save(existingCategory);
     }

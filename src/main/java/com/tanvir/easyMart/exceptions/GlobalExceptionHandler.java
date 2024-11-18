@@ -1,5 +1,6 @@
 package com.tanvir.easyMart.exceptions;
 
+import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -22,6 +23,12 @@ public class GlobalExceptionHandler {
             response.put(fieldName,errorMessage);
         });
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> myResourceNotFoundException(ResourceNotFoundException error){
+        String message = error.getMessage();
+        return new ResponseEntity<>(message,HttpStatus.NOT_FOUND);
     }
 
 }
