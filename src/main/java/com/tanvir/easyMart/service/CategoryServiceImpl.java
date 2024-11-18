@@ -13,9 +13,6 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    //private List<Category> categories = new ArrayList<>();
-    //private Long nextId = 1L;
-
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -25,25 +22,24 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void createCategory(Category category) {
-        //category.setCategoryId(nextId++);
-        categoryRepository.save(category);
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
     }
 
     @Override
     public String deleteCategory(Long categoryId) {
-        Category toBeDeletedCategory = categoryRepository.findById(categoryId).
-                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Category toBeDeletedCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
         categoryRepository.delete(toBeDeletedCategory);
-        return "Category with id " + categoryId + " deleted";
+        return "Category with ID " + categoryId + " deleted successfully.";
     }
 
     @Override
-    public String updateCategory(Long categoryId, Category category) {
+    public Category updateCategory(Long categoryId, Category category) {
         Category existingCategory = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
-        category.setCategoryId(categoryId);
-        categoryRepository.save(category);
-        return "Category with id " + categoryId + " updated";
+        existingCategory.setCategoryName(category.getCategoryName());
+        return categoryRepository.save(existingCategory);
     }
 }
+
