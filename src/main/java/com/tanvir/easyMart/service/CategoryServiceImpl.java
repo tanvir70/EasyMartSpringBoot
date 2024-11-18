@@ -1,5 +1,6 @@
 package com.tanvir.easyMart.service;
 
+import com.tanvir.easyMart.exceptions.APIException;
 import com.tanvir.easyMart.exceptions.ResourceNotFoundException;
 import com.tanvir.easyMart.model.Category;
 import com.tanvir.easyMart.repositories.CategoryRepository;
@@ -19,11 +20,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty()) {
+            throw new APIException("No Category Created yet !!!");
+        }
+        return categories;
     }
 
     @Override
     public Category createCategory(Category category) {
+        Category categorySaved = categoryRepository.findByCategoryName(category.getCategoryName());
+        if (categorySaved != null) {
+            throw new APIException("Category '" + category.getCategoryName() + "' already exists !!!!!!");
+        }
         return categoryRepository.save(category);
     }
 
