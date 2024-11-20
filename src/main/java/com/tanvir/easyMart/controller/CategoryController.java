@@ -1,5 +1,7 @@
 package com.tanvir.easyMart.controller;
 
+import com.tanvir.easyMart.dto.CategoryDTO;
+import com.tanvir.easyMart.dto.CategoryResponseDTO;
 import com.tanvir.easyMart.model.Category;
 import com.tanvir.easyMart.service.CategoryService;
 import jakarta.validation.Valid;
@@ -22,26 +24,26 @@ public class CategoryController {
 
     @GetMapping("/public/categories")
     @ResponseStatus(HttpStatus.OK)
-    public List<Category> getAllCategories() {
+    public CategoryResponseDTO getAllCategories() {
         return categoryService.getAllCategories();
     }
 
     @PostMapping(value = "/public/categories", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Category createCategory(@Valid @RequestBody Category category) {
-        return categoryService.createCategory(category);
+    public CategoryDTO createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+        return categoryService.createCategory(categoryDTO);
     }
 
     @DeleteMapping("/admin/categories/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public String deleteCategory(@PathVariable Long categoryId) {
+    public CategoryDTO deleteCategory(@PathVariable Long categoryId) {
         return categoryService.deleteCategory(categoryId);
     }
 
     @PutMapping(value = "/admin/categories/{categoryId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Category updateCategory(@PathVariable Long categoryId, @RequestBody Category category) {
-        return categoryService.updateCategory(categoryId, category);
+    public CategoryDTO updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDTO categoryDTO) {
+        return categoryService.updateCategory(categoryId, categoryDTO);
     }
 }
 
