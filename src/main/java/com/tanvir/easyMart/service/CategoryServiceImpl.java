@@ -70,5 +70,13 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryDTO categoryDTOSaved = modelMapper.map(existingCategory, CategoryDTO.class);
         return categoryDTOSaved;
     }
+
+    @Override
+    public CategoryDTO getCategory(Long id) {
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", id));
+        CategoryDTO categoryDTOSaved = modelMapper.map(existingCategory, CategoryDTO.class);
+        return categoryDTOSaved;
+    }
 }
 

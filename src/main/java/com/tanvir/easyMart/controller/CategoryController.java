@@ -22,10 +22,22 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("/echo")
+    @ResponseStatus(HttpStatus.OK)
+    public String echo(@RequestParam String message) {
+        return ("echo" + message);
+    }
+
     @GetMapping("/public/categories")
     @ResponseStatus(HttpStatus.OK)
     public CategoryResponseDTO getAllCategories() {
         return categoryService.getAllCategories();
+    }
+
+    @GetMapping("/public/categories/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryDTO getCategory(@PathVariable Long id) {
+        return categoryService.getCategory(id);
     }
 
     @PostMapping(value = "/public/categories", consumes = MediaType.APPLICATION_JSON_VALUE)
