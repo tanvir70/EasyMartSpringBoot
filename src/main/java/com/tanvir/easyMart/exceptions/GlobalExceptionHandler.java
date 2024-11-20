@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> myResourceNotFoundException(ResourceNotFoundException error){
-        String message = error.getMessage();
+        String message = error.getMessage()+ " \uD83D\uDE25";
         return new ResponseEntity<>(message,HttpStatus.NOT_FOUND);
     }
 
