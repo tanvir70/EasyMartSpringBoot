@@ -1,5 +1,6 @@
 package com.tanvir.easyMart.service;
 
+import com.tanvir.easyMart.dto.CategoryResponseDTO;
 import com.tanvir.easyMart.exceptions.APIException;
 import com.tanvir.easyMart.exceptions.ResourceNotFoundException;
 import com.tanvir.easyMart.model.Category;
@@ -19,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> getAllCategories() {
+    public CategoryResponseDTO getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
         if (categories.isEmpty()) {
             throw new APIException("No Category Created yet !!!");
