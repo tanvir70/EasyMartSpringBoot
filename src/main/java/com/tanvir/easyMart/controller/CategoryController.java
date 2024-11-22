@@ -1,5 +1,6 @@
 package com.tanvir.easyMart.controller;
 
+import com.tanvir.easyMart.config.AppConstants;
 import com.tanvir.easyMart.dto.CategoryDTO;
 import com.tanvir.easyMart.dto.CategoryResponseDTO;
 import com.tanvir.easyMart.model.Category;
@@ -27,8 +28,8 @@ public class CategoryController {
     @GetMapping("/public/categories")
     @ResponseStatus(HttpStatus.OK)
     public CategoryResponseDTO getAllCategories(
-            @RequestParam(name = "pageNumber") Integer pageNumber,
-            @RequestParam(name = "pageSize") Integer pageSize) {
+            @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER) Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE) Integer pageSize) {
         return categoryService.getAllCategories(pageNumber, pageSize);
     }
 
