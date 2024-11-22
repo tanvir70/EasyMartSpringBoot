@@ -23,11 +23,6 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/echo")
-    @ResponseStatus(HttpStatus.OK)
-    public String echo(@RequestParam String message) {
-        return ("echo" + message);
-    }
 
     @GetMapping("/public/categories")
     @ResponseStatus(HttpStatus.OK)
