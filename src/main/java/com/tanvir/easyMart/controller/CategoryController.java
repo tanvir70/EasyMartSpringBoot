@@ -4,6 +4,7 @@ import com.tanvir.easyMart.dto.CategoryDTO;
 import com.tanvir.easyMart.dto.CategoryResponseDTO;
 import com.tanvir.easyMart.model.Category;
 import com.tanvir.easyMart.service.CategoryService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -30,8 +31,10 @@ public class CategoryController {
 
     @GetMapping("/public/categories")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryResponseDTO getAllCategories() {
-        return categoryService.getAllCategories();
+    public CategoryResponseDTO getAllCategories(
+            @RequestParam(name = "pageNumber") Integer pageNumber,
+            @RequestParam(name = "pageSize") Integer pageSize) {
+        return categoryService.getAllCategories(pageNumber, pageSize);
     }
 
     @GetMapping("/public/categories/{id}")
